@@ -1,4 +1,78 @@
 <!DOCTYPE html>
-<html>
-    
+<html lang="en">
+
+<head>
+    <title>The Zoo</title>
+
+    <script>
+        var currentSection = 0;
+
+        // Function   : validateInput()
+        // Purpose    : This function validates the information depending on the
+        //              section it is on
+        function validateInput(event) {
+            var doSubmit = true;
+
+            switch(currentSection) {
+                case 0:
+                    var usernameInput = document.getElementById("inputUsername");
+
+                    doSubmit = false; // remove later
+
+                    switchToSection(1);
+                    break;
+                case 1:
+                    break;
+                default:
+                    console.log("currentSection should be 0 or 1");
+                    break;
+            }
+
+            if (!doSubmit) {
+                event.preventDefault();
+            }
+        }
+
+        // Function   : switchToSection()
+        // Purpose    : This function switches to the provided section.
+        //              0 is the username section and 1 is the animal section
+        // Parameters : nextSection : the section to switch to
+        function switchToSection(nextSection) {
+            switch (nextSection) {
+                case 1:
+                    document.getElementById("inputUsername").disabled = true;
+                    document.getElementById("usernameSection").style.display = '';
+                    document.getElementById("animalSection").style.display = '';
+                    break;
+                case 0:            
+                default:
+                    document.getElementById("usernameSection").style.display = '';
+                    document.getElementById("animalSection").style.display = 'none';
+
+                    nextSection = 0; // makes sure that in case of incorrect section number it defaults to 0
+                    break;
+            }
+
+            currentSection = nextSection;
+        }
+    </script>
+</head>
+
+<body>
+    <form name="ZooForm" action="./animal.exe" method="GET" onsubmit="validateInput(event);">
+        <table border="0" style="width: 80%;">
+            <tr id="usernameSection">
+                <td style="width: 20%; align-self: flex-end;">Enter username: </td>
+                <td style="width: 70%; align-self: flex-start;"><input id="inputUsername" type="text" placeholder="Username" name="username"></td>
+            </tr>
+            <tr id="animalSection" style="display: none;">
+                <td>Select an animal: </td>
+                <td>
+                    <select></select>
+                </td>
+            </tr>
+        </table>
+    </form>
+</body>
+
 </html>
