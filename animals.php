@@ -1,7 +1,20 @@
+<!-- FILE          : animals.php -->
+<!-- PROJECT       : Assignment 3 -->
+<!-- PROGRAMMER    : David Czachor -->
+<!-- FIRST VERSION : 2022-10-11 -->
+<!-- PURPOSE       : This program uses PHP to display an animal 
+                     from what was sent through the POST request -->
 <!DOCTYPE html>
   <html>
     <head>
-      <title>The Zoo</title>
+        <title>The Zoo</title>
+
+        <style>
+            img {
+                float: left;
+                padding-right: 10px;
+            }
+        </style>    
     </head>
 
     <body>
@@ -36,24 +49,22 @@
             $animalTextFile = fopen('./theZoo/zebra.txt', 'r') or die(UNABLE_TO_OPEN);
             break;
     }
-?>
 
-	<h2>Hi <? echo $username ?>, your animal is a <? echo $animal ?>.</h2> 
+    if(empty($username) || empty($animal)) {
+        echo "Incorrect data inputted";
+    }
+    else { ?>
+        <h2>Hi <? echo $username ?>, your animal is a <? echo $animal ?>.</h2> 
 
-    <style>
-        img {
-            float: left;
-            padding-right: 10px;
-        }
-    </style>    
-
-	<br/><br/>
+        <br/><br/>
         <div>
-        <img src="<?=$animalPicture ?>" alt="test" width = '400' height = '400'/> 
+            <img src="<?=$animalPicture ?>" alt="test" width = '400' height = '400'/> 
             <? while (!feof($animalTextFile)) { // Reads text file
             echo fgets($animalTextFile); // Prints text file
             }
             fclose($animalTextFile); ?>
         </div>
+     <?php } ?>
+
     </body>
 </html>
