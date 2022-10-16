@@ -1,3 +1,13 @@
+<!-- FILE          : cgi-zoo.html -->
+<!-- PROJECT       : Assignment 3 -->
+<!-- PROGRAMMER    : Kyle Dunn -->
+<!-- FIRST VERSION : 2022-10-11 -->
+<!-- PURPOSE       : This page displays two inputs, one for entering the user's 
+                     name and the second for selecting from a list of animals.
+                     
+                     After submitting these inputs the page will be redirected to
+                     a CGI implmentation of displaying the animal. -->
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -12,7 +22,7 @@
 
     <script>
         var currentSection = 0;
-        
+
         /**
          * Function   : showErrorMsg()
          * Purpose    : This function quickly shows and displays an error message
@@ -40,12 +50,13 @@
         // Function   : validateInput()
         // Purpose    : This function validates the information depending on the
         //              section it is on
+        // Parameters : event : used for preventing the form from submitting
         function validateInput(event) {
             hideErrorMsgs();
-            
+
             var doSubmit = true;
 
-            switch(currentSection) {
+            switch (currentSection) {
                 case 1:
                     var animalInput = document.getElementById("selectAnimal").value;
                     if (animalInput == "none") {
@@ -53,6 +64,9 @@
 
                         doSubmit = false;
                     }
+
+                    /* no break point here as it needs to double check the 
+                       username input in case the user has modified it */
                 case 0:
                     var usernameInput = document.getElementById("inputUsername").value;
                     var nameLength = (usernameInput.trim()).length;
@@ -87,7 +101,7 @@
                     document.getElementById("usernameSection").style.display = '';
                     document.getElementById("animalSection").style.display = '';
                     break;
-                case 0:            
+                case 0:
                 default:
                     document.getElementById("usernameSection").style.display = '';
                     document.getElementById("animalSection").style.display = 'none';
@@ -126,7 +140,9 @@
                 </td>
                 <td id="animalError" class="errorMsg" style="display: none;">
             </tr>
-            <tr><td colspan="3"><input type="submit" value="Submit"></td></tr>
+            <tr>
+                <td colspan="3"><input type="submit" value="Submit"></td>
+            </tr>
         </table>
     </form>
 </body>

@@ -1,4 +1,134 @@
 <!DOCTYPE html>
-<html>
-    
+<html lang="en">
+
+<head>
+    <title>The Zoo</title>
+
+    <style>
+        .errorMsg {
+            color: red;
+        }
+    </style>
+
+    <script>
+        var currentSection = 0;
+        
+        /**
+         * Function   : showErrorMsg()
+         * Purpose    : This function quickly shows and displays an error message
+         *              for the element matching the id
+         * Parameters : elementId : the element id to display the error
+         *              message        : the message to display
+         */
+        function showErrorMsg(elementId, message) {
+            var errorElement = document.getElementById(elementId);
+            errorElement.innerHTML = message;
+            errorElement.style.display = 'inline-block';
+        }
+
+        /**
+         * Function   : hideErrorMsgs()
+         * Purpose    : This function hides all elements with classname 'errorMsg'
+         */
+        function hideErrorMsgs() {
+            var errorMsgs = document.getElementsByClassName('errorMsg');
+            for (var i = 0; i < errorMsgs.length; i++) {
+                errorMsgs[i].style.display = 'none';
+            }
+        }
+
+        // Function   : validateInput()
+        // Purpose    : This function validates the information depending on the
+        //              section it is on
+        function validateInput(event) {
+            hideErrorMsgs();
+            
+            var doSubmit = true;
+
+            switch(currentSection) {
+                case 1:
+                    var animalInput = document.getElementById("selectAnimal").value;
+                    if (animalInput == "none") {
+                        showErrorMsg("animalError", "You must select an animal!");
+
+                        doSubmit = false;
+                    }
+                case 0:
+                    var usernameInput = document.getElementById("inputUsername").value;
+                    var nameLength = (usernameInput.trim()).length;
+                    if (nameLength == 0) {
+                        showErrorMsg("usernameError", "Your name cannot be BLANK!");
+
+                        doSubmit = false;
+                    } else if (currentSection == 0) {
+                        switchToSection(1);
+
+                        doSubmit = false;
+                    }
+
+                    break;
+                default:
+                    console.log("currentSection should be 0 or 1");
+                    break;
+            }
+
+            if (!doSubmit) {
+                event.preventDefault();
+            }
+        }
+
+        // Function   : switchToSection()
+        // Purpose    : This function switches to the provided section.
+        //              0 is the username section and 1 is the animal section
+        // Parameters : nextSection : the section to switch to
+        function switchToSection(nextSection) {
+            switch (nextSection) {
+                case 1:
+                    document.getElementById("usernameSection").style.display = '';
+                    document.getElementById("animalSection").style.display = '';
+                    break;
+                case 0:            
+                default:
+                    document.getElementById("usernameSection").style.display = '';
+                    document.getElementById("animalSection").style.display = 'none';
+
+                    nextSection = 0; // makes sure that in case of incorrect section number it defaults to 0
+                    break;
+            }
+
+            currentSection = nextSection;
+        }
+
+        hideErrorMsgs();
+    </script>
+</head>
+
+<body>
+    <form name="ZooForm" action="./animals.php" method="POST" onsubmit="validateInput(event);" autocomplete="off">
+        <table border="0" style="width: 80%;">
+            <tr id="usernameSection">
+                <td style="width: 20%; align-self: flex-end;">Enter username: </td>
+                <td><input id="inputUsername" type="text" placeholder="Username" name="username" required></td>
+                <td id="usernameError" class="errorMsg" style="display: none;">
+            </tr>
+            <tr id="animalSection" style="display: none;">
+                <td>Select an animal: </td>
+                <td>
+                    <select id="selectAnimal" name="animal" required>
+                        <option value="none" selected disabled>Select one</option>
+                        <option value="dolphin">Dolphin</option>
+                        <option value="giraffe">Giraffe</option>
+                        <option value="lion">Lion</option>
+                        <option value="monkey">Monkey</option>
+                        <option value="polarBear">Polar Bear</option>
+                        <option value="zebra">Zebra</option>
+                    </select>
+                </td>
+                <td id="animalError" class="errorMsg" style="display: none;">
+            </tr>
+            <tr><td colspan="3"><input type="submit" value="Submit"></td></tr>
+        </table>
+    </form>
+</body>
+
 </html>
