@@ -54,6 +54,9 @@ else {
             $animalPicture = './theZoo/zebra.jpg';
             $animalTextFile = fopen('./theZoo/zebra.txt', 'r') or die(UNABLE_TO_OPEN);
             break;
+        default:
+            $animalPicture = "";
+            $animalTextFile = "";
     }
 
     if(empty($username) || empty($animal)) {
@@ -64,9 +67,15 @@ else {
 
         <br/><br/>
         <div>
-            <img src="<?=$animalPicture ?>" alt="test" width = '400' height = '400'/> 
-            <? while (!feof($animalTextFile)) { // Reads text file
-            echo fgets($animalTextFile); // Prints text file
+            <img src="<?=$animalPicture ?>" alt="" width = '400' height = '400'/> 
+            <? 
+            if (!file_exists($animalTextFile)) {
+                print 'Invalid Animal';
+            }
+            else {
+                while (!feof($animalTextFile)) { // Reads text file
+                echo fgets($animalTextFile); // Prints text file
+                }
             }
             fclose($animalTextFile); ?>
         </div>
