@@ -6,11 +6,11 @@
 
     <body>
 <?php 
-	$username = $_POST['username'];
-	$animal = $_POST['animal'];
-    define("UNABLE_TO_OPEN", "Unable to open file!");
+	$username = $_POST['username']; // Username through post
+	$animal = $_POST['animal']; // Animal through post
+    define("UNABLE_TO_OPEN", "Unable to open file!"); // Constant for unable to open file
 
-    switch ($animal) {
+    switch ($animal) { // Case statement to display picture/text depending on what animal is chosen
         case 'dolphin':
             $animalPicture = './theZoo/dolphin.jpg';
             $animalTextFile = fopen('./theZoo/dolphin.txt', 'r') or die(UNABLE_TO_OPEN);
@@ -38,7 +38,7 @@
     }
 ?>
 
-	<h2>Hi, <? echo $username ?>, your animal is a <? echo $animal ?>.</h2>
+	<h2>Hi <? echo $username ?>, your animal is a <? echo $animal ?>.</h2> 
 
     <style>
         img {
@@ -49,9 +49,9 @@
 
 	<br/><br/>
         <div>
-        <img src="<?=$animalPicture ?>" alt="test" width = '400' height = '400'/>
-            <? while (!feof($animalTextFile)) {
-            echo fgets($animalTextFile) . "<br>";
+        <img src="<?=$animalPicture ?>" alt="test" width = '400' height = '400'/> 
+            <? while (!feof($animalTextFile)) { // Reads text file
+            echo fgets($animalTextFile); // Prints text file
             }
             fclose($animalTextFile); ?>
         </div>
