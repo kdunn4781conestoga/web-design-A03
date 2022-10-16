@@ -20,8 +20,12 @@
     <body>
 <?php 
 if (!empty($_POST)) {
-        $username = $_POST['username']; // Username through post
-	    $animal = $_POST['animal']; // Animal through post
+    $username = $_POST['username']; // Username through post
+	$animal = $_POST['animal']; // Animal through post
+}
+else {
+    $username = "";
+    $animal = "";
 }
     define("UNABLE_TO_OPEN", "Unable to open file!"); // Constant for unable to open file
 
