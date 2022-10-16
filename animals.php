@@ -59,7 +59,7 @@ else {
             $animalTextFile = "";
     }
 
-    if(empty($username) || empty($animal)) {
+    if(empty($username) || empty($animal) || empty($animalPicture) || empty($animalTextFile)) {
         echo "Incorrect data inputted";
     }
     else { ?>
@@ -69,13 +69,8 @@ else {
         <div>
             <img src="<?=$animalPicture ?>" alt="" width = '400' height = '400'/> 
             <? 
-            if (!file_exists($animalTextFile)) {
-                print 'Invalid Animal';
-            }
-            else {
-                while (!feof($animalTextFile)) { // Reads text file
+            while (!feof($animalTextFile)) { // Reads text file
                 echo fgets($animalTextFile); // Prints text file
-                }
             }
             fclose($animalTextFile); ?>
         </div>
