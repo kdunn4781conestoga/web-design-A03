@@ -19,8 +19,10 @@
 
     <body>
 <?php 
-	$username = $_POST['username']; // Username through post
-	$animal = $_POST['animal']; // Animal through post
+if (!empty($_POST)) {
+        $username = $_POST['username']; // Username through post
+	    $animal = $_POST['animal']; // Animal through post
+}
     define("UNABLE_TO_OPEN", "Unable to open file!"); // Constant for unable to open file
 
     switch ($animal) { // Case statement to display picture/text depending on what animal is chosen
